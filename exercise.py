@@ -1,6 +1,8 @@
 import streamlit as st
 from simpleai.search import CspProblem, backtrack
 
+st.title("Test")
+
 # variables
 input = st.text_input("Input: ")
 originalList = []
