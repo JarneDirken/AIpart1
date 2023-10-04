@@ -1,7 +1,7 @@
 import streamlit as st
 from simpleai.search import CspProblem, backtrack
 
-st.title("Test")
+st.title("AI task part 1")
 
 # variables
 input = st.text_input("Input: ")
@@ -100,4 +100,6 @@ problem = CspProblem(variables, domains, constraints)
 
 output = backtrack(problem)
 print('\nSolutions:', output)
-st.text(output)
+if output:
+    st.text(output)
+
