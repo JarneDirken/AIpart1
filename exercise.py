@@ -100,3 +100,4 @@ problem = CspProblem(variables, domains, constraints)
 
 output = backtrack(problem)
 print('\nSolutions:', output)
+st.text(output)
