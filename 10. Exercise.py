@@ -1,7 +1,8 @@
+import streamlit as st
 from simpleai.search import CspProblem, backtrack
 
 # variables
-input = input("Input: ")
+input = st.text_input("Input: ")
 originalList = []
 uniqueList = []
 beforePlus = []
@@ -43,7 +44,7 @@ for char in originalList:
     if char not in uniqueList and char != '+' and char != '=':
         uniqueList.append(char)
 
-# set the unique list in the dictionary
+# set the unique list in a dictionary using recursion
 def UniqueListToDictionary(uniqueList):
     if (len(uniqueList)==0):
         return domains
@@ -67,20 +68,26 @@ def constraint_unique(variables, values):
     return len(values) == len(set(values))  # remove repeated values and count
 
 def constraint_add(variables, values):
-    # Ensure that each variable corresponds to a unique digit
-    if len(set(values)) != len(values):
-        return False
-
-    # Convert the variables values into ints
+    # Convert the variables values into ints and create a dictionary
+    # that maps each variable to its corresponding value.
     var_values = {variables[i]: values[i] for i in range(len(variables))}
 
-    # Extract the left and right operands as strings
+    # Extract the left operand as a string by concatenating the values
+    # of variables specified in the 'beforePlus' list.
     left_operand = ''.join([str(var_values[char]) for char in beforePlus])
+
+    # Extract the right operand as a string by concatenating the values
+    # of variables specified in the 'beforeEquals' list.
     right_operand = ''.join([str(var_values[char]) for char in beforeEquals])
+
+    # Extract the expected result as a string by concatenating the values
+    # of variables specified in the 'afterEquals' list.
     result = ''.join([str(var_values[char]) for char in afterEquals])
 
-    # Check if the equation is valid (left_operand + right_operand == result)
+    # Check if the equation is valid by converting the operands and result
+    # to integers and verifying if left_operand + right_operand equals result.
     return int(left_operand) + int(right_operand) == int(result)
+
 
 constraints = [
     (variables, constraint_unique),
