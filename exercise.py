@@ -1,6 +1,9 @@
 import streamlit as st
 from simpleai.search import CspProblem, backtrack
 
+st.title("AI task part 1")
+st.text("Type E.g: 'ODD + ODD = EVEN'. Press 'enter' to run the programme.")
+
 # variables
 input = st.text_input("Input: ")
 originalList = []
@@ -98,3 +101,6 @@ problem = CspProblem(variables, domains, constraints)
 
 output = backtrack(problem)
 print('\nSolutions:', output)
+if output:
+    st.text(output)
+
